@@ -47,6 +47,23 @@ namespace BowlingGame.Test
         }
 
         [TestMethod]
+        public void Test1Quille20Lancers()
+        {
+            // ETANT DONNE une partie
+            var partie = new Partie();
+
+            // QUAND on fait tomber une quille 20 fois
+
+            for (int i = 0; i < 20; i++)
+            {
+                partie.Lancer(1);
+            }
+
+            // ALORS le score est de 20
+            Assert.AreEqual(20, partie.Score);
+        }
+
+        [TestMethod]
         public void TestLancerRaté()
         {
             // ETANT DONNE une partie
@@ -54,19 +71,6 @@ namespace BowlingGame.Test
 
             // QUAND on fait tomber 0 quilles
             partie.Lancer(0);
-
-            // ALORS le score est de 0
-            Assert.AreEqual(0, partie.Score);
-        }
-
-        [TestMethod]
-        public void TestStrike()
-        {
-            // ETANT DONNE une partie
-            var partie = new Partie();
-
-            // QUAND on fait tomber 10 quilles
-            partie.Lancer(10);
 
             // ALORS le score est de 0
             Assert.AreEqual(0, partie.Score);
@@ -85,7 +89,7 @@ namespace BowlingGame.Test
             partie.Lancer(8);
             partie.Lancer(1);
 
-            // ALORS le score est de 0
+            // ALORS le score est de 27
             Assert.AreEqual(27, partie.Score);
         }
 
@@ -108,8 +112,53 @@ namespace BowlingGame.Test
 
             //Avec bonus Score = 18
 
-            // ALORS le score est de 0
+            // ALORS le score est de 18
             Assert.AreEqual(18, partie.Score);
+        }
+
+        [TestMethod]
+        public void Test2Spare3Quilles()
+        {
+            // ETANT DONNE une partie
+            var partie = new Partie();
+
+            // QUAND on fait tomber 10 quilles en 2 fois
+            for (int i = 0; i < 2; i++)
+            {
+                partie.Lancer(9); 
+                partie.Lancer(1);
+                //10 - 28
+                partie.Lancer(3);
+                //13 - 31
+                partie.Lancer(2);
+                //15 - 33
+                //18 - 36
+            }
+
+            // ALORS le score est de 36
+            Assert.AreEqual(36, partie.Score);
+        }
+
+        [TestMethod]
+        public void TestStrike()
+        {
+            // ETANT DONNE une partie
+            var partie = new Partie();
+
+            // QUAND on fait tomber 10 quille
+            partie.Lancer(10);
+            //Score = 10
+
+            partie.Lancer(3);
+            //Score = 13
+
+            partie.Lancer(2);
+            //Score = 15
+
+            //Avec bonus Score = 15 + 3+2 = 20
+
+            // ALORS le score est de 20
+            Assert.AreEqual(20, partie.Score);
         }
     }
 }
