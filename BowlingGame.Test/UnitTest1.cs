@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace BowlingGame.Test
 {
@@ -15,7 +16,11 @@ namespace BowlingGame.Test
             partie.Lancer(2);
 
             // ALORS le score est de 0
-            Assert.AreEqual(0, partie.Score);
+            foreach(var j in partie.listeJoueurs)
+            {
+                Assert.AreEqual(0, j.score);
+            }
+            
         }
 
 
@@ -30,7 +35,10 @@ namespace BowlingGame.Test
             partie.Lancer(1);
 
             // ALORS le score est de 2
-            Assert.AreEqual(2, partie.Score);
+            foreach (var j in partie.listeJoueurs)
+            {
+                Assert.AreEqual(2, j.score);
+            }
         }
 
         [TestMethod]
@@ -43,7 +51,10 @@ namespace BowlingGame.Test
             partie.Lancer(1);
 
             // ALORS le score est de 0
-            Assert.AreEqual(0, partie.Score);
+            foreach (var j in partie.listeJoueurs)
+            {
+                Assert.AreEqual(0, j.score);
+            }
         }
 
         [TestMethod]
@@ -60,7 +71,10 @@ namespace BowlingGame.Test
             }
 
             // ALORS le score est de 20
-            Assert.AreEqual(20, partie.Score);
+            foreach (var j in partie.listeJoueurs)
+            {
+                Assert.AreEqual(20, j.score);
+            }
         }
 
         [TestMethod]
@@ -73,7 +87,10 @@ namespace BowlingGame.Test
             partie.Lancer(0);
 
             // ALORS le score est de 0
-            Assert.AreEqual(0, partie.Score);
+            foreach (var j in partie.listeJoueurs)
+            {
+                Assert.AreEqual(0, j.score);
+            }
         }
 
         [TestMethod]
@@ -90,7 +107,10 @@ namespace BowlingGame.Test
             partie.Lancer(1);
 
             // ALORS le score est de 27
-            Assert.AreEqual(27, partie.Score);
+            foreach (var j in partie.listeJoueurs)
+            {
+                Assert.AreEqual(27, j.score);
+            }
         }
 
         [TestMethod]
@@ -113,7 +133,10 @@ namespace BowlingGame.Test
             //Avec bonus Score = 18
 
             // ALORS le score est de 18
-            Assert.AreEqual(18, partie.Score);
+            foreach (var j in partie.listeJoueurs)
+            {
+                Assert.AreEqual(18, j.score);
+            };
         }
 
         [TestMethod]
@@ -136,7 +159,10 @@ namespace BowlingGame.Test
             }
 
             // ALORS le score est de 36
-            Assert.AreEqual(36, partie.Score);
+            foreach (var j in partie.listeJoueurs)
+            {
+                Assert.AreEqual(36, j.score);
+            }
         }
 
         [TestMethod]
@@ -158,7 +184,10 @@ namespace BowlingGame.Test
             //Avec bonus Score = 15 + 3+2 = 20
 
             // ALORS le score est de 20
-            Assert.AreEqual(20, partie.Score);
+            foreach (var j in partie.listeJoueurs)
+            {
+                Assert.AreEqual(20, j.score);
+            }
         }
     }
 }

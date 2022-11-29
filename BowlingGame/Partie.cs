@@ -2,45 +2,64 @@
 
 public class Partie
 {
-    private readonly List<int> _historique = new ();
+    public List<Joueur> listeJoueurs = new List<Joueur>();
+
+
+    public Partie()
+    {
+        createListeJoueurs();
+
+    }
+
+    public void createListeJoueurs()
+    {
+        listeJoueurs.Add(new Joueur(1, "Sasha"));
+        listeJoueurs.Add(new Joueur(2, "Julie"));
+        listeJoueurs.Add(new Joueur(3, "Ahmed"));
+        listeJoueurs.Add(new Joueur(4, "Maxime"));
+    }
 
     public void Lancer(int nombreQuillesTombées)
     {
-        _historique.Add(nombreQuillesTombées);
+        foreach(var joueur in listeJoueurs)
+        {
+            Console.WriteLine("Tour de : " + joueur.name);
+            joueur._historique.Add(nombreQuillesTombées);
 
-        if (TermineUneFrame())
-        {
-            Score += DeuxDerniersLancers.Sum();
-            if (ScoreSpare == 10)
+
+            if (joueur.TermineUneFrame())
             {
-                Score += PremierDeuxDerniersLancers;
-                ScoreSpare = 0;
+                joueur.score += joueur.DeuxDerniersLancers.Sum();
+                if (joueur.ScoreSpare == 10)
+                {
+                    joueur.score += joueur.PremierDeuxDerniersLancers;
+                    joueur.ScoreSpare = 0;
+                }
+                if (joueur.ScoreStrike == 10)
+                {
+                    joueur.score += joueur.DeuxDerniersLancers.Sum();
+                    joueur.ScoreStrike = 0;
+                }
+
             }
-            if (ScoreStrike == 10)
+
+            if (joueur.EstUnStrike())
             {
-                Score += DeuxDerniersLancers.Sum();
-                ScoreStrike = 0;
+                joueur._historique.Add(0);
+                joueur.ScoreStrike = joueur.DeuxDerniersLancers.Sum();
+                joueur.score += 10;
             }
-        }
-        
-        if(EstUnStrike()) 
-        {
-            //_historique.Add(0);
-            ScoreStrike = DeuxDerniersLancers.Sum();
-        }
-        if (EstUnSpare())
-        {
-            ScoreSpare = DeuxDerniersLancers.Sum();
+            if (joueur.EstUnSpare())
+            {
+                joueur.ScoreSpare = joueur.DeuxDerniersLancers.Sum();
+            }
+
+
+            Console.WriteLine("Score : " + joueur.score);
         }
     }
     
-    private IEnumerable<int> DeuxDerniersLancers => _historique.AsEnumerable().Reverse().Take(2);
-    private int PremierDeuxDerniersLancers => DeuxDerniersLancers.Reverse().First();
-    private bool TermineUneFrame() => _historique.Count % 2 == 0;
-    private bool EstUnSpare() => DeuxDerniersLancers.Sum() == 10 && PremierDeuxDerniersLancers != 10;
-    private bool EstUnStrike() => DeuxDerniersLancers.Sum() == 10 && PremierDeuxDerniersLancers == 10;
 
-    public int Score { get; private set; }
-    public int ScoreSpare { get; private set; } = 0;
-    public int ScoreStrike { get; private set; } = 0;
+
+    
 }
