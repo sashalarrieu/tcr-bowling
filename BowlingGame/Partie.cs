@@ -5,18 +5,21 @@ public class Partie
     public List<Joueur> listeJoueurs = new List<Joueur>();
 
 
-    public Partie()
-    {
-        createListeJoueurs();
 
+    public Partie(Joueur[] joueur)
+    {
+        foreach(Joueur jo in joueur) { listeJoueurs.Add(jo); }
+        if (!checkMinimumJoueurs()) { throw new ArgumentException("La partie ne compte aucun joueur, il faut au minimum un joueur"); }
     }
 
-    public void createListeJoueurs()
+    public bool checkMinimumJoueurs()
     {
-        listeJoueurs.Add(new Joueur(1, "Sasha"));
-        listeJoueurs.Add(new Joueur(2, "Julie"));
-        listeJoueurs.Add(new Joueur(3, "Ahmed"));
-        listeJoueurs.Add(new Joueur(4, "Maxime"));
+        if (this.listeJoueurs.Count <= 0)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public void Lancer(int nombreQuillesTombées)
