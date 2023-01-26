@@ -8,8 +8,18 @@ public class Partie
 
     public Partie(Joueur[] joueur)
     {
-        foreach (Joueur jo in joueur) { listeJoueurs.Add(jo); }
+        foreach (Joueur jo in joueur) { if (!checkIfPlayerIdAlreadyExist(jo)) { listeJoueurs.Add(jo); } }
         if (!checkMinimumJoueurs()) { throw new ArgumentException("La partie ne compte aucun joueur, il faut au minimum un joueur"); }
+    }
+
+    public bool checkIfPlayerIdAlreadyExist(Joueur joueur)
+    {
+        foreach(Joueur jo in listeJoueurs)
+        {
+            if(jo.id== joueur.id) return true;
+        }
+
+        return false;
     }
 
     public bool checkMinimumJoueurs()

@@ -419,5 +419,22 @@ namespace BowlingGame.Test
             Assert.ThrowsException<ArgumentException>(() => partie.Lancer(Sasha ,4));
 
         }
+
+        [TestMethod]
+        public void TestIdJoueurDifferent()
+        {
+            // ETANT DONNE une partie
+            // On créer des joueurs dont 2 ont des id similaires
+            Joueur Sasha = new Joueur(1, "Sasha");
+            Joueur Julie = new Joueur(1, "Julie");
+            Joueur Ahmed = new Joueur(3, "Ahmed");
+            Joueur Maxime = new Joueur(4, "Maxime");
+            Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
+            Partie partie = new Partie(tabJoueur);
+            
+            // On vérifie qu'on se retrouve avec 3 joueurs seulement
+            Assert.AreEqual(3, partie.listeJoueurs.Count);
+            
+        }
     }
 }
