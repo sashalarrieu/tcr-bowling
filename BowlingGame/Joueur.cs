@@ -8,9 +8,9 @@ namespace BowlingGame
 {
     public class Joueur
     {
-        public int id;
-        public string name;
-        public int score = 0;
+        public int id { get; }
+        public string name { get; }
+        public int score { get; set; } = 0;
         public readonly List<int> _historique = new();
         public int ScoreSpare { get; set; } = 0;
         public int ScoreStrike { get; set; } = 0;
@@ -22,28 +22,15 @@ namespace BowlingGame
 
         }
 
-        public int getId()
-        {
-            return id;
-        }
-
-        public string getName()
-        { 
-            return name; 
-        }
-
-        public int getScore()
-        {
-            return score;
-        }
-
-        public void setScore(int score) { }
-
         public IEnumerable<int> DeuxDerniersLancers => _historique.AsEnumerable().Reverse().Take(2);
         public int PremierDeuxDerniersLancers => DeuxDerniersLancers.Reverse().First();
         public bool TermineUneFrame() => _historique.Count % 2 == 0;
         public bool EstUnSpare() => DeuxDerniersLancers.Sum() == 10 && PremierDeuxDerniersLancers != 10;
         public bool EstUnStrike() => DeuxDerniersLancers.Sum() == 10 && PremierDeuxDerniersLancers == 10;
 
+        public override string ToString()
+        {
+            return "Joueur: " + name + " - Score: " + score;
+        }
     }
 }
