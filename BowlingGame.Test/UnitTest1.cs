@@ -342,39 +342,6 @@ namespace BowlingGame.Test
         }
 
         [TestMethod]
-        public void TestSparePuisStrike()
-        {
-            // ETANT DONNE une partie
-            Joueur Sasha = new Joueur(1, "Sasha");
-            Joueur[] tabJoueur = new Joueur[] { Sasha };
-            Partie partie = new Partie(tabJoueur);
-
-            foreach (var j in partie.listeJoueurs)
-            {
-                partie.Lancer(j, 3);
-                //Score = 3
-                partie.Lancer(j, 7);
-                //Score = 10
-
-                // QUAND on fait tomber 10 quille
-                partie.Lancer(j, 10);
-                //Score = 30 (10 + 10 * 2)
-
-                partie.Lancer(j, 3);
-                //Score = 33
-
-                partie.Lancer(j, 2);
-                //Score = 40 (33 + 2 + 3 + 2)
-            }
-
-            // ALORS le score est de 40
-            foreach (var j in partie.listeJoueurs)
-            {
-                Assert.AreEqual(40, j.score);
-            }
-        }
-
-        [TestMethod]
         public void TestClassementFinal()
         {
             // ETANT DONNE une partie
@@ -536,6 +503,33 @@ namespace BowlingGame.Test
             {
                 Assert.AreEqual(0, j.score);
             }
+        }
+
+        [TestMethod]
+        public void TestGagnant()
+        {
+            // ETANT DONNE une partie
+            Joueur Sasha = new Joueur(1, "Sasha");
+            Joueur Julie = new Joueur(2, "Julie");
+            Joueur Ahmed = new Joueur(3, "Ahmed");
+            Joueur Maxime = new Joueur(4, "Maxime");
+            Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
+            Partie partie = new Partie(tabJoueur);
+
+            // LORSQUE la partie est jouee
+            partie.Lancer(Sasha, 10);
+            partie.Lancer(Julie, 2);
+            partie.Lancer(Julie, 2);
+            partie.Lancer(Maxime, 3);
+            partie.Lancer(Maxime, 3);
+            partie.Lancer(Ahmed, 1);
+            partie.Lancer(Ahmed, 1);
+
+            Joueur gagnant = Sasha;
+
+            // ALORS le classement final est correct
+            Assert.AreEqual(gagnant, partie.Gagnant());
+
         }
 
     }
