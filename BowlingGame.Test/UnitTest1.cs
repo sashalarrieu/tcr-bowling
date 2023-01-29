@@ -436,5 +436,35 @@ namespace BowlingGame.Test
             Assert.AreEqual(3, partie.listeJoueurs.Count);
             
         }
+
+        [TestMethod]
+        public void Test1Strike0Quille()
+        {
+            // ETANT DONNE une partie
+            Joueur Sasha = new Joueur(1, "Sasha");
+            Joueur[] tabJoueur = new Joueur[] { Sasha };
+            Partie partie = new Partie(tabJoueur);
+
+            foreach (var j in partie.listeJoueurs)
+            {
+                // QUAND on fait tomber 10 quille
+                partie.Lancer(j, 10);
+                //Score = 10
+
+                partie.Lancer(j, 0);
+                //Score = 10
+
+                partie.Lancer(j, 0);
+                //Score = 10
+
+                //Avec bonus Score = 10 + 0+0 = 10
+            }
+
+            // ALORS le score est de 10
+            foreach (var j in partie.listeJoueurs)
+            {
+                Assert.AreEqual(10, j.score);
+            }
+        }
     }
 }
