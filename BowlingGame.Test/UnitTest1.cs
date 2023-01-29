@@ -532,5 +532,12 @@ namespace BowlingGame.Test
 
         }
 
+
+        [TestMethod]
+        public void TestFailed()
+        {
+            // Ce test doit echouer
+            Assert.AreEqual(0,1);
+        }
     }
 }
