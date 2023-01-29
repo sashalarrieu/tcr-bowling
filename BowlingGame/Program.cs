@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using BowlingGame;
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Hello, World !");
 Joueur Sasha = new Joueur(1, "Sasha");
 Joueur Julie = new Joueur(2, "Julie");
 Joueur Ahmed = new Joueur(3, "Ahmed");
