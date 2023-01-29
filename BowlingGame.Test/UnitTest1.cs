@@ -522,5 +522,21 @@ namespace BowlingGame.Test
 
             Assert.AreEqual(prochainJoueur, Julie);
         }
+
+        [TestMethod]
+        public void Test0Score()
+        {
+            // ETANT DONNE une partie
+            Joueur Sasha = new Joueur(1, "Sasha");
+            Joueur[] tabJoueur = new Joueur[] { Sasha };
+            Partie partie = new Partie(tabJoueur);
+
+            // ALORS le score est de 0
+            foreach (var j in partie.listeJoueurs)
+            {
+                Assert.AreEqual(0, j.score);
+            }
+        }
+        
     }
 }
