@@ -32,8 +32,15 @@ public class Partie
         return true;
     }
 
+    public bool checkNombreQuilleTombees(int nombreQuille)
+    {
+        if(nombreQuille>10 || nombreQuille<0) { return false; }
+        return true;
+    }
+
     public void Lancer(Joueur joueur, int nombreQuillesTombées)
     {
+        if(!checkNombreQuilleTombees(nombreQuillesTombées)) { throw new ArgumentException("Vous ne pouvez pas lancer plus de 10 quilles"); }
         Console.WriteLine("Tour de : " + joueur.name);
         joueur._historique.Add(nombreQuillesTombées);
 

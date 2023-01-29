@@ -98,7 +98,7 @@ namespace BowlingGame.Test
         }
 
         [TestMethod]
-        public void TestLancerRaté()
+        public void TestLancerRatï¿½()
         {
             // ETANT DONNE une partie
             Joueur Sasha = new Joueur(1, "Sasha");
@@ -246,7 +246,7 @@ namespace BowlingGame.Test
             Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
             Partie partie = new Partie(tabJoueur);
 
-            // On créer des joueurs
+            // On crï¿½er des joueurs
             Joueur joueurTest = new Joueur(5, "JoueurTest");
             Joueur joueurTest2 = new Joueur(6, "JoueurTest2");
             Joueur joueurTest3 = new Joueur(7, "JoueurTest3");
@@ -254,13 +254,13 @@ namespace BowlingGame.Test
             // On regarde combien de joueurs il y a avant d'en ajouter
             int nbJoueurs = partie.listeJoueurs.Count;
 
-            // On ajoute à la partie les nouveaux joueurs
+            // On ajoute ï¿½ la partie les nouveaux joueurs
             partie.listeJoueurs.Add(joueurTest);
             partie.listeJoueurs.Add(joueurTest2);
             partie.listeJoueurs.Add(joueurTest3);
 
 
-            // On vérifie le nombre de joueurs
+            // On vï¿½rifie le nombre de joueurs
             Assert.AreEqual(nbJoueurs + 3, partie.listeJoueurs.Count);
 
         }
@@ -279,19 +279,19 @@ namespace BowlingGame.Test
             // On vide la liste de joueurs
             partie.listeJoueurs.Clear();
 
-            // On créer des joueurs
+            // On crï¿½er des joueurs
             Joueur joueurTest = new Joueur(5, "JoueurTest");
             Joueur joueurTest2 = new Joueur(6, "JoueurTest2");
             Joueur joueurTest3 = new Joueur(7, "JoueurTest3");
             Joueur joueurTest4 = new Joueur(8, "JoueurTest4");
 
-            // On ajoute à la partie les nouveaux joueurs
+            // On ajoute ï¿½ la partie les nouveaux joueurs
             partie.listeJoueurs.Add(joueurTest);
             partie.listeJoueurs.Add(joueurTest2);
             partie.listeJoueurs.Add(joueurTest3);
             partie.listeJoueurs.Add(joueurTest4);
 
-            // On vérifie le nombre de joueurs
+            // On vï¿½rifie le nombre de joueurs
             Assert.AreEqual(4, partie.listeJoueurs.Count);
 
         }
@@ -299,7 +299,7 @@ namespace BowlingGame.Test
         [TestMethod]
         public void TestAtLeast1Player()
         {
-            // On créer une liste joueur vide
+            // On crï¿½er une liste joueur vide
             Joueur[] joueur = new Joueur[] { };
 
             // ETANT DONNE une partie
@@ -385,7 +385,7 @@ namespace BowlingGame.Test
             Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
             Partie partie = new Partie(tabJoueur);
 
-            // LORSQUE la partie est jouée
+            // LORSQUE la partie est jouï¿½e
             partie.Lancer(Sasha, 10);
             partie.Lancer(Julie, 2);
             partie.Lancer(Julie, 2);
@@ -424,7 +424,7 @@ namespace BowlingGame.Test
         public void TestIdJoueurDifferent()
         {
             // ETANT DONNE une partie
-            // On créer des joueurs dont 2 ont des id similaires
+            // On crï¿½er des joueurs dont 2 ont des id similaires
             Joueur Sasha = new Joueur(1, "Sasha");
             Joueur Julie = new Joueur(1, "Julie");
             Joueur Ahmed = new Joueur(3, "Ahmed");
@@ -432,7 +432,7 @@ namespace BowlingGame.Test
             Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
             Partie partie = new Partie(tabJoueur);
             
-            // On vérifie qu'on se retrouve avec 3 joueurs seulement
+            // On vï¿½rifie qu'on se retrouve avec 3 joueurs seulement
             Assert.AreEqual(3, partie.listeJoueurs.Count);
             
         }
@@ -465,6 +465,62 @@ namespace BowlingGame.Test
             {
                 Assert.AreEqual(10, j.score);
             }
+        }
+        
+        public void TestFaireTomber10QuillesMax()
+        {
+            // ETANT DONNE une partie
+            // On crï¿½er des joueurs dont 2 ont des id similaires
+            Joueur Sasha = new Joueur(1, "Sasha");
+            Joueur Julie = new Joueur(1, "Julie");
+            Joueur Ahmed = new Joueur(3, "Ahmed");
+            Joueur Maxime = new Joueur(4, "Maxime");
+            Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
+            Partie partie = new Partie(tabJoueur);
+
+            // On vï¿½rifie qu'on ne puisse pas faire tomber plus de 10 quilles
+            Assert.ThrowsException<ArgumentException>(() => partie.Lancer(tabJoueur[0], 11));
+        }
+
+        [TestMethod]
+        public void TestFaireTomber0QuillesMin()
+        {
+            // ETANT DONNE une partie
+            // On crï¿½er des joueurs dont 2 ont des id similaires
+            Joueur Sasha = new Joueur(1, "Sasha");
+            Joueur Julie = new Joueur(1, "Julie");
+            Joueur Ahmed = new Joueur(3, "Ahmed");
+            Joueur Maxime = new Joueur(4, "Maxime");
+            Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
+            Partie partie = new Partie(tabJoueur);
+
+            // On vï¿½rifie qu'on ne puisse pas faire tomber moins de 10 quilles
+            Assert.ThrowsException<ArgumentException>(() => partie.Lancer(tabJoueur[0], -1));
+        }
+
+        [TestMethod]
+        public void TestRoulementParManche()
+        {
+            // ETANT DONNE une partie
+            // On crï¿½er des joueurs dont 2 ont des id similaires
+            Joueur Sasha = new Joueur(1, "Sasha");
+            Joueur Julie = new Joueur(2, "Julie");
+            Joueur Ahmed = new Joueur(3, "Ahmed");
+            Joueur Maxime = new Joueur(4, "Maxime");
+            Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
+            Partie partie = new Partie(tabJoueur);
+
+            Joueur prochainJoueur = null;
+            // LORSQUE la partie est jouï¿½e
+            for(int i = 0; i< partie.listeJoueurs.Count; i++)
+            {
+                // QUAND on fait jouer le premier joueur
+                partie.Lancer(partie.listeJoueurs[i], 1);
+                prochainJoueur = partie.listeJoueurs[i+1];
+                break;
+            }
+
+            Assert.AreEqual(prochainJoueur, Julie);
         }
     }
 }
