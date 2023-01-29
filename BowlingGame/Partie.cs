@@ -2,44 +2,101 @@
 
 public class Partie
 {
-    private readonly List<int> _historique = new ();
+    public List<Joueur> listeJoueurs = new List<Joueur>();
 
-    public void Lancer(int nombreQuillesTombées)
+
+
+    public Partie(Joueur[] joueur)
     {
-        _historique.Add(nombreQuillesTombées);
+        foreach (Joueur jo in joueur) { if (!checkIfPlayerIdAlreadyExist(jo)) { listeJoueurs.Add(jo); } }
+        if (!checkMinimumJoueurs()) { throw new ArgumentException("La partie ne compte aucun joueur, il faut au minimum un joueur"); }
+    }
 
-        if (TermineUneFrame())
+    public bool checkIfPlayerIdAlreadyExist(Joueur joueur)
+    {
+        foreach(Joueur jo in listeJoueurs)
         {
-            Score += DeuxDerniersLancers.Sum();
-            if (ScoreSpare == 10)
+            if(jo.id== joueur.id) return true;
+        }
+
+        return false;
+    }
+
+    public bool checkMinimumJoueurs()
+    {
+        if (this.listeJoueurs.Count <= 0)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool checkNombreQuilleTombees(int nombreQuille)
+    {
+        if(nombreQuille>10 || nombreQuille<0) { return false; }
+        return true;
+    }
+
+    public void Lancer(Joueur joueur, int nombreQuillesTombées)
+    {
+        if(!checkNombreQuilleTombees(nombreQuillesTombées)) { throw new ArgumentException("Vous ne pouvez pas lancer plus de 10 quilles"); }
+        Console.WriteLine("Tour de : " + joueur.name);
+        joueur._historique.Add(nombreQuillesTombées);
+
+        if (joueur.TermineUneFrame())
+        {
+            joueur.score += joueur.DeuxDerniersLancers.Sum();
+            if (joueur.ScoreSpare == 10)
             {
-                Score += PremierDeuxDerniersLancers;
-                ScoreSpare = 0;
+                joueur.score += joueur.PremierDeuxDerniersLancers;
+                joueur.ScoreSpare = 0;
             }
-            if (ScoreStrike == 10)
+            if (joueur.ScoreStrike == 10)
             {
-                Score += DeuxDerniersLancers.Sum();
-                ScoreStrike = 0;
+                joueur.score += joueur.DeuxDerniersLancers.Sum();
+                joueur.ScoreStrike = 0;
             }
         }
         
-        if(EstUnStrike()) 
+        if (joueur.EstUnStrike())
         {
-            _historique.Add(0);
-            ScoreStrike = DeuxDerniersLancers.Sum();
+            joueur._historique.Add(0);
+            joueur.ScoreStrike = joueur.DeuxDerniersLancers.Sum();
+            joueur.score += 10;
         }
-        if (EstUnSpare())
-        {
-            ScoreSpare = DeuxDerniersLancers.Sum();
-        }
-    ²}
-    private IEnumerable<int> DeuxDerniersLancers => _historique.AsEnumerable().Reverse().Take(2);
-    private int PremierDeuxDerniersLancers => DeuxDerniersLancers.Reverse().First();
-    private bool TermineUneFrame() => _historique.Count % 2 == 0;
-    private bool EstUnSpare() => DeuxDerniersLancers.Sum() == 10 && PremierDeuxDerniersLancers != 10;
-    private bool EstUnStrike() => DeuxDerniersLancers.Sum() == 10 && PremierDeuxDerniersLancers == 10;
 
-    public int Score { get; private set; }
-    public int ScoreSpare { get; private set; } = 0;
-    public int ScoreStrike { get; private set; } = 0;
+        if (joueur.EstUnSpare())
+        {
+            joueur.ScoreSpare = joueur.DeuxDerniersLancers.Sum();
+        }
+        if (joueur.score > 300)
+        {
+            throw new ArgumentException("Le score ne peut pas être supérieur à 300");
+        }
+        Console.WriteLine("Score : " + joueur.score);
+    }
+
+    public List<Joueur> ClassementFinal()
+    {
+        // trier la liste de joueurs en fonction de leur score
+        listeJoueurs = listeJoueurs.OrderByDescending(j => j.score).ToList();
+        // afficher le classement final des joueurs
+        for (int i = 0; i < listeJoueurs.Count; i++)
+        {
+            Console.WriteLine((i + 1) + ": " + listeJoueurs[i].name + " - Score: " + listeJoueurs[i].score);
+        }
+        return listeJoueurs;
+    }
+
+    public override string ToString()
+    {
+        string result = "";
+        foreach (var joueur in listeJoueurs)
+        {
+            result += joueur.ToString() + "\n";
+        }
+        return result;
+    }
+
 }
