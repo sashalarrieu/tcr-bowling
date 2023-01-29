@@ -89,6 +89,15 @@ public class Partie
         return listeJoueurs;
     }
 
+    public Joueur Gagnant()
+    {
+        List<Joueur> listeJoueursScore = ClassementFinal();
+        Joueur gagnant = listeJoueursScore.First();
+        // On affiche le gagnant
+        Console.WriteLine(gagnant.name+ " a gagné !");
+        return gagnant;
+    }
+
     public override string ToString()
     {
         string result = "";

@@ -98,7 +98,7 @@ namespace BowlingGame.Test
         }
 
         [TestMethod]
-        public void TestLancerRat�()
+        public void TestLancerRaté()
         {
             // ETANT DONNE une partie
             Joueur Sasha = new Joueur(1, "Sasha");
@@ -246,7 +246,7 @@ namespace BowlingGame.Test
             Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
             Partie partie = new Partie(tabJoueur);
 
-            // On cr�er des joueurs
+            // On créer des joueurs
             Joueur joueurTest = new Joueur(5, "JoueurTest");
             Joueur joueurTest2 = new Joueur(6, "JoueurTest2");
             Joueur joueurTest3 = new Joueur(7, "JoueurTest3");
@@ -254,13 +254,13 @@ namespace BowlingGame.Test
             // On regarde combien de joueurs il y a avant d'en ajouter
             int nbJoueurs = partie.listeJoueurs.Count;
 
-            // On ajoute � la partie les nouveaux joueurs
+            // On ajoute à la partie les nouveaux joueurs
             partie.listeJoueurs.Add(joueurTest);
             partie.listeJoueurs.Add(joueurTest2);
             partie.listeJoueurs.Add(joueurTest3);
 
 
-            // On v�rifie le nombre de joueurs
+            // On vérifie le nombre de joueurs
             Assert.AreEqual(nbJoueurs + 3, partie.listeJoueurs.Count);
 
         }
@@ -279,19 +279,19 @@ namespace BowlingGame.Test
             // On vide la liste de joueurs
             partie.listeJoueurs.Clear();
 
-            // On cr�er des joueurs
+            // On créer des joueurs
             Joueur joueurTest = new Joueur(5, "JoueurTest");
             Joueur joueurTest2 = new Joueur(6, "JoueurTest2");
             Joueur joueurTest3 = new Joueur(7, "JoueurTest3");
             Joueur joueurTest4 = new Joueur(8, "JoueurTest4");
 
-            // On ajoute � la partie les nouveaux joueurs
+            // On ajoute à la partie les nouveaux joueurs
             partie.listeJoueurs.Add(joueurTest);
             partie.listeJoueurs.Add(joueurTest2);
             partie.listeJoueurs.Add(joueurTest3);
             partie.listeJoueurs.Add(joueurTest4);
 
-            // On v�rifie le nombre de joueurs
+            // On vérifie le nombre de joueurs
             Assert.AreEqual(4, partie.listeJoueurs.Count);
 
         }
@@ -299,7 +299,7 @@ namespace BowlingGame.Test
         [TestMethod]
         public void TestAtLeast1Player()
         {
-            // On cr�er une liste joueur vide
+            // On créer une liste joueur vide
             Joueur[] joueur = new Joueur[] { };
 
             // ETANT DONNE une partie
@@ -385,7 +385,7 @@ namespace BowlingGame.Test
             Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
             Partie partie = new Partie(tabJoueur);
 
-            // LORSQUE la partie est jou�e
+            // LORSQUE la partie est jouée
             partie.Lancer(Sasha, 10);
             partie.Lancer(Julie, 2);
             partie.Lancer(Julie, 2);
@@ -424,7 +424,7 @@ namespace BowlingGame.Test
         public void TestIdJoueurDifferent()
         {
             // ETANT DONNE une partie
-            // On cr�er des joueurs dont 2 ont des id similaires
+            // On créer des joueurs dont 2 ont des id similaires
             Joueur Sasha = new Joueur(1, "Sasha");
             Joueur Julie = new Joueur(1, "Julie");
             Joueur Ahmed = new Joueur(3, "Ahmed");
@@ -432,45 +432,16 @@ namespace BowlingGame.Test
             Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
             Partie partie = new Partie(tabJoueur);
             
-            // On v�rifie qu'on se retrouve avec 3 joueurs seulement
+            // On vérifie qu'on se retrouve avec 3 joueurs seulement
             Assert.AreEqual(3, partie.listeJoueurs.Count);
             
         }
 
         [TestMethod]
-        public void Test1Strike0Quille()
-        {
-            // ETANT DONNE une partie
-            Joueur Sasha = new Joueur(1, "Sasha");
-            Joueur[] tabJoueur = new Joueur[] { Sasha };
-            Partie partie = new Partie(tabJoueur);
-
-            foreach (var j in partie.listeJoueurs)
-            {
-                // QUAND on fait tomber 10 quille
-                partie.Lancer(j, 10);
-                //Score = 10
-
-                partie.Lancer(j, 0);
-                //Score = 10
-
-                partie.Lancer(j, 0);
-                //Score = 10
-
-                //Avec bonus Score = 10 + 0+0 = 10
-            }
-
-            // ALORS le score est de 10
-            foreach (var j in partie.listeJoueurs)
-            {
-                Assert.AreEqual(10, j.score);
-            }
-        }
-        
         public void TestFaireTomber10QuillesMax()
         {
             // ETANT DONNE une partie
-            // On cr�er des joueurs dont 2 ont des id similaires
+            // On créer des joueurs dont 2 ont des id similaires
             Joueur Sasha = new Joueur(1, "Sasha");
             Joueur Julie = new Joueur(1, "Julie");
             Joueur Ahmed = new Joueur(3, "Ahmed");
@@ -478,7 +449,7 @@ namespace BowlingGame.Test
             Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
             Partie partie = new Partie(tabJoueur);
 
-            // On v�rifie qu'on ne puisse pas faire tomber plus de 10 quilles
+            // On vérifie qu'on ne puisse pas faire tomber plus de 10 quilles
             Assert.ThrowsException<ArgumentException>(() => partie.Lancer(tabJoueur[0], 11));
         }
 
@@ -486,7 +457,7 @@ namespace BowlingGame.Test
         public void TestFaireTomber0QuillesMin()
         {
             // ETANT DONNE une partie
-            // On cr�er des joueurs dont 2 ont des id similaires
+            // On créer des joueurs dont 2 ont des id similaires
             Joueur Sasha = new Joueur(1, "Sasha");
             Joueur Julie = new Joueur(1, "Julie");
             Joueur Ahmed = new Joueur(3, "Ahmed");
@@ -494,7 +465,7 @@ namespace BowlingGame.Test
             Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
             Partie partie = new Partie(tabJoueur);
 
-            // On v�rifie qu'on ne puisse pas faire tomber moins de 10 quilles
+            // On vérifie qu'on ne puisse pas faire tomber moins de 10 quilles
             Assert.ThrowsException<ArgumentException>(() => partie.Lancer(tabJoueur[0], -1));
         }
 
@@ -502,7 +473,7 @@ namespace BowlingGame.Test
         public void TestRoulementParManche()
         {
             // ETANT DONNE une partie
-            // On cr�er des joueurs dont 2 ont des id similaires
+            // On créer des joueurs dont 2 ont des id similaires
             Joueur Sasha = new Joueur(1, "Sasha");
             Joueur Julie = new Joueur(2, "Julie");
             Joueur Ahmed = new Joueur(3, "Ahmed");
@@ -511,7 +482,7 @@ namespace BowlingGame.Test
             Partie partie = new Partie(tabJoueur);
 
             Joueur prochainJoueur = null;
-            // LORSQUE la partie est jou�e
+            // LORSQUE la partie est jouée
             for(int i = 0; i< partie.listeJoueurs.Count; i++)
             {
                 // QUAND on fait jouer le premier joueur
@@ -524,19 +495,30 @@ namespace BowlingGame.Test
         }
 
         [TestMethod]
-        public void Test0Score()
+        public void TestGagnant()
         {
             // ETANT DONNE une partie
             Joueur Sasha = new Joueur(1, "Sasha");
-            Joueur[] tabJoueur = new Joueur[] { Sasha };
+            Joueur Julie = new Joueur(2, "Julie");
+            Joueur Ahmed = new Joueur(3, "Ahmed");
+            Joueur Maxime = new Joueur(4, "Maxime");
+            Joueur[] tabJoueur = new Joueur[] { Sasha, Julie, Ahmed, Maxime };
             Partie partie = new Partie(tabJoueur);
 
-            // ALORS le score est de 0
-            foreach (var j in partie.listeJoueurs)
-            {
-                Assert.AreEqual(0, j.score);
-            }
+            // LORSQUE la partie est jouée
+            partie.Lancer(Sasha, 10);
+            partie.Lancer(Julie, 2);
+            partie.Lancer(Julie, 2);
+            partie.Lancer(Maxime, 3);
+            partie.Lancer(Maxime, 3);
+            partie.Lancer(Ahmed, 1);
+            partie.Lancer(Ahmed, 1);
+
+            Joueur gagnant = Ahmed;
+
+            // ALORS le classement final est correct
+            Assert.AreEqual(gagnant, partie.Gagnant();
+
         }
-        
     }
 }
